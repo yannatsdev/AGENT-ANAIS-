@@ -9,6 +9,7 @@ import {
   MIC_CAPTURE_WORKLET_SOURCE,
   VOICE_PLAYER_WORKLET_SOURCE,
 } from '../utils/audioWorklets';
+import { getApiUrl, getLiveWsUrl } from '../utils/apiConfig';
 import {
   applySmoothGainRamp,
   buildResumeContext,
@@ -584,6 +585,28 @@ export function useLiveVoiceSession(options: UseLiveVoiceSessionOptions) {
       }
     };
 
+    let hasEverConnected = false;
+
+    const diagnoseBackendAvailability = async (): Promise<string | null> => {
+      try {
+        const res = await fetch(getApiUrl('/api/health'), {
+          method: 'GET',
+          cache: 'no-store',
+        });
+        const contentType = res.headers.get('content-type') || '';
+        if (!res.ok || !contentType.includes('application/json')) {
+          return "Le serveur vocal temps réel n'est pas actif sur cet hébergement (Vercel ne prend pas en charge les serveurs WebSocket persistants). Déployez l'application complète sur Cloud Run, Render ou Railway, ou configurez VITE_BACKEND_URL.";
+        }
+        const data = (await res.json()) as { ok?: boolean };
+        if (!data?.ok) {
+          return "Le serveur vocal temps réel ne répond pas correctement. Vérifiez le déploiement du serveur backend et la variable GEMINI_API_KEY.";
+        }
+        return null;
+      } catch {
+        return "Impossible de joindre le serveur vocal temps réel. Vérifiez que le backend Node/WebSocket est démarré et accessible.";
+      }
+    };
+
     const scheduleReconnect = (reason?: string) => {
       if (cancelled || finishedRef.current || intentionalCloseRef.current) {
         return;
@@ -595,6 +618,43 @@ export function useLiveVoiceSession(options: UseLiveVoiceSessionOptions) {
           'Connexion réseau indisponible. Rétablissez votre connexion puis cliquez sur Reconnecter.'
         );
         setStatusSafe('error');
+        return;
+      }
+
+      // If the very first WebSocket handshake failed before ever opening, quickly check /api/health
+      // so static-only hosts (e.g. Vercel) surface an immediate, clear explanation instead of looping 20s.
+      if (!hasEverConnected && reconnectAttemptsRef.current === 0 && !reason) {
+        reconnectAttemptsRef.current = 1;
+        setStatusSafe('reconnecting');
+        diagnoseBackendAvailability()
+          .then((diagnostic) => {
+            if (cancelled || finishedRef.current || intentionalCloseRef.current) {
+              return;
+            }
+            if (diagnostic) {
+              setErrorMessage(diagnostic);
+              setStatusSafe('error');
+              return;
+            }
+            reconnectTimerRef.current = window.setTimeout(() => {
+              reconnectTimerRef.current = null;
+              if (
+                !cancelled &&
+                !finishedRef.current &&
+                !intentionalCloseRef.current
+              ) {
+                openSocket(true);
+              }
+            }, RECONNECT_DELAYS_MS[0]);
+          })
+          .catch(() => {
+            if (!cancelled && !finishedRef.current) {
+              setErrorMessage(
+                'La connexion vocale a été interrompue. Cliquez sur Reconnecter pour reprendre sans perdre vos notes.'
+              );
+              setStatusSafe('error');
+            }
+          });
         return;
       }
 
@@ -647,8 +707,7 @@ export function useLiveVoiceSession(options: UseLiveVoiceSessionOptions) {
 
       setStatusSafe(isReconnect ? 'reconnecting' : 'connecting');
 
-      const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
-      const ws = new WebSocket(`${protocol}//${window.location.host}/ws/live`);
+      const ws = new WebSocket(getLiveWsUrl());
       ws.binaryType = 'arraybuffer';
       wsRef.current = ws;
 
@@ -796,6 +855,7 @@ export function useLiveVoiceSession(options: UseLiveVoiceSessionOptions) {
           if (msg.type === 'pong') return;
 
           if (msg.type === 'ready') {
+            hasEverConnected = true;
             reconnectAttemptsRef.current = 0;
             setStatusSafe('listening');
             setErrorMessage(null);

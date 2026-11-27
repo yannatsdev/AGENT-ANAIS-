@@ -19,6 +19,7 @@ import {
 import { LiveSessionResult } from './hooks/useLiveVoiceSession';
 import { useOnlineStatus } from './hooks/usePWA';
 import { buildOfflineSummary } from './utils/interviewLogic';
+import { getApiUrl } from './utils/apiConfig';
 import {
   addPendingDeleteId,
   deleteInterviewOffline,
@@ -81,7 +82,7 @@ export default function App() {
       const pendingDeletes = getPendingDeleteIds();
       for (const delId of pendingDeletes) {
         try {
-          const delRes = await fetch(`/api/interviews/${encodeURIComponent(delId)}`, {
+          const delRes = await fetch(getApiUrl(`/api/interviews/${encodeURIComponent(delId)}`), {
             method: 'DELETE',
           });
           if (delRes.ok || delRes.status === 404 || delRes.status === 400) {
@@ -115,13 +116,13 @@ export default function App() {
             transcript: pending.transcript,
             capturedNotes: pending.capturedNotes,
           };
-          let syncRes = await fetch('/api/interviews/complete', {
+          let syncRes = await fetch(getApiUrl('/api/interviews/complete'), {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ ...basePayload, audioBase64 }),
           });
           if (syncRes.status === 413 && audioBase64) {
-            syncRes = await fetch('/api/interviews/complete', {
+            syncRes = await fetch(getApiUrl('/api/interviews/complete'), {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
               body: JSON.stringify(basePayload),
@@ -145,8 +146,8 @@ export default function App() {
       }
 
       const [provRes, histRes] = await Promise.all([
-        fetch('/api/config/providers'),
-        fetch('/api/interviews'),
+        fetch(getApiUrl('/api/config/providers')),
+        fetch(getApiUrl('/api/interviews')),
       ]);
 
       if (provRes.ok) {
@@ -259,7 +260,7 @@ export default function App() {
         };
 
         try {
-          let res = await fetch('/api/interviews/complete', {
+          let res = await fetch(getApiUrl('/api/interviews/complete'), {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ ...basePayload, audioBase64 }),
@@ -267,7 +268,7 @@ export default function App() {
 
           // If request exceeded server body size, retry immediately without audio so AI summary still succeeds
           if (res.status === 413 && audioBase64) {
-            res = await fetch('/api/interviews/complete', {
+            res = await fetch(getApiUrl('/api/interviews/complete'), {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
               body: JSON.stringify(basePayload),
@@ -315,7 +316,7 @@ export default function App() {
     }
     if (navigator.onLine) {
       try {
-        const res = await fetch(`/api/interviews/${encodeURIComponent(id)}`, {
+        const res = await fetch(getApiUrl(`/api/interviews/${encodeURIComponent(id)}`), {
           method: 'DELETE',
         });
         if (res.ok || res.status === 404 || res.status === 400) {

@@ -19,9 +19,12 @@ import {
   isLegacySeedId,
   isValidInterviewId,
   joinFrenchTranscriptFragment,
+  parseAllowedOrigins,
   parseHttpByteRange,
   pcm16BufferToFloat32,
   resampleLinear,
+  resolveBackendApiUrl,
+  resolveLiveWebSocketUrl,
   sanitizeDurationSeconds,
   sanitizePdfText,
   sanitizePromptField,
@@ -483,6 +486,45 @@ test('joinFrenchTranscriptFragment joins French apostrophes, hyphens, and punctu
   assert.equal(joinFrenchTranscriptFragment('Parfait', '.'), 'Parfait.');
   assert.equal(joinFrenchTranscriptFragment('Nous avons', 'besoin d’aide'), 'Nous avons besoin d’aide');
 });
+
+test('resolveBackendApiUrl and resolveLiveWebSocketUrl support both same-origin and external VITE_BACKEND_URL', () => {
+  assert.equal(resolveBackendApiUrl('/api/health'), '/api/health');
+  assert.equal(
+    resolveBackendApiUrl('/api/health', 'https://anais-api.run.app/'),
+    'https://anais-api.run.app/api/health'
+  );
+  assert.equal(
+    resolveBackendApiUrl('blob:https://app.vercel.app/123', 'https://anais-api.run.app'),
+    'blob:https://app.vercel.app/123'
+  );
+
+  assert.equal(
+    resolveLiveWebSocketUrl({ protocol: 'https:', host: 'anais.run.app' }),
+    'wss://anais.run.app/ws/live'
+  );
+  assert.equal(
+    resolveLiveWebSocketUrl(
+      { protocol: 'https:', host: 'anais.vercel.app' },
+      'https://anais-backend.onrender.com/'
+    ),
+    'wss://anais-backend.onrender.com/ws/live'
+  );
+  assert.equal(
+    resolveLiveWebSocketUrl(
+      { protocol: 'http:', host: 'localhost:5173' },
+      'http://localhost:3000'
+    ),
+    'ws://localhost:3000/ws/live'
+  );
+});
+
+test('parseAllowedOrigins normalizes valid HTTP/HTTPS origins and ignores invalid entries', () => {
+  const allowed = parseAllowedOrigins('https://Mon-App.vercel.app/, http://localhost:3000, not-a-url, ftp://bad.host');
+  assert.equal(allowed.has('https://mon-app.vercel.app'), true);
+  assert.equal(allowed.has('http://localhost:3000'), true);
+  assert.equal(allowed.size, 2);
+});
+
 
 
 

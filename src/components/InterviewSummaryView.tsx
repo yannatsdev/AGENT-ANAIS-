@@ -13,6 +13,7 @@ import { InterviewRecord } from '../types/interview';
 import { formatDuration } from '../utils/interviewLogic';
 import { exportInterviewToPdf } from '../utils/pdfExport';
 import { getOfflineAudioUrl } from '../utils/offlineStore';
+import { getApiUrl } from '../utils/apiConfig';
 
 interface InterviewSummaryViewProps {
   record: InterviewRecord;
@@ -47,16 +48,17 @@ export const InterviewSummaryView: React.FC<InterviewSummaryViewProps> = ({
       revokeCurrent();
       setAudioSrc(null);
       setAudioFallbackTried(false);
-      if (record.audioUrl && navigator.onLine) {
-        if (active) setAudioSrc(record.audioUrl);
+      const remoteAudioUrl = record.audioUrl ? getApiUrl(record.audioUrl) : null;
+      if (remoteAudioUrl && navigator.onLine) {
+        if (active) setAudioSrc(remoteAudioUrl);
         return;
       }
       const localUrl = await getOfflineAudioUrl(record.id);
       if (active && localUrl) {
         objectUrlRef.current = localUrl;
         setAudioSrc(localUrl);
-      } else if (active && record.audioUrl) {
-        setAudioSrc(record.audioUrl);
+      } else if (active && remoteAudioUrl) {
+        setAudioSrc(remoteAudioUrl);
       } else if (active) {
         setAudioSrc(null);
       }

@@ -247,8 +247,8 @@ export const LiveCallModal: React.FC<LiveCallModalProps> = ({
         <div className="flex flex-col items-center px-4 pt-4 pb-5 sm:px-6 sm:pt-5 sm:pb-6">
           <div
             className={`relative flex items-center justify-center transition-all duration-200 ${
-              showNotesDrawer
-                ? 'h-44 w-44 sm:h-56 sm:w-56'
+              showNotesDrawer || session.errorMessage
+                ? 'h-40 w-40 sm:h-48 sm:w-48'
                 : 'h-56 w-56 sm:h-72 sm:w-72'
             }`}
           >
@@ -291,8 +291,8 @@ export const LiveCallModal: React.FC<LiveCallModalProps> = ({
             {/* Anaïs Portrait with Emerald/Teal Ring */}
             <div
               className={`relative overflow-hidden rounded-full border-2 border-[#10B981] bg-[#0B2D33] shadow-xl transition-all duration-200 ${
-                showNotesDrawer
-                  ? 'h-28 w-28 sm:h-36 sm:w-36'
+                showNotesDrawer || session.errorMessage
+                  ? 'h-24 w-24 sm:h-32 sm:w-32'
                   : 'h-36 w-36 sm:h-44 sm:w-44'
               }`}
             >

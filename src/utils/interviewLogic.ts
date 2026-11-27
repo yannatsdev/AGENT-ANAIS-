@@ -679,4 +679,70 @@ export function joinFrenchTranscriptFragment(existing: string, nextFragment: str
   return `${prev}${noSpaceNeeded ? '' : ' '}${next}`;
 }
 
+/**
+ * Resolves an API or audio path against an optional external backend base URL
+ * (e.g. VITE_BACKEND_URL when frontend is hosted on Vercel and backend on Cloud Run/Render/Railway).
+ */
+export function resolveBackendApiUrl(
+  pathOrUrl: string,
+  backendBaseUrl?: string
+): string {
+  const trimmed = pathOrUrl.trim();
+  if (!trimmed) return '';
+  if (/^https?:\/\//i.test(trimmed) || trimmed.startsWith('blob:')) {
+    return trimmed;
+  }
+  const base = (backendBaseUrl || '').trim().replace(/\/+$/, '');
+  const normalizedPath = trimmed.startsWith('/') ? trimmed : `/${trimmed}`;
+  if (!base) {
+    return normalizedPath;
+  }
+  return `${base}${normalizedPath}`;
+}
+
+/**
+ * Resolves the `/ws/live` WebSocket URL using either an explicit backend base URL
+ * or the current browser origin.
+ */
+export function resolveLiveWebSocketUrl(
+  locationLike: { protocol: string; host: string },
+  backendBaseUrl?: string
+): string {
+  const base = (backendBaseUrl || '').trim().replace(/\/+$/, '');
+  if (base) {
+    try {
+      const parsed = new URL(base);
+      const wsProtocol = parsed.protocol === 'https:' ? 'wss:' : 'ws:';
+      return `${wsProtocol}//${parsed.host}/ws/live`;
+    } catch {
+      // Fallback to same-origin if malformed
+    }
+  }
+  const protocol = locationLike.protocol === 'https:' ? 'wss:' : 'ws:';
+  return `${protocol}//${locationLike.host}/ws/live`;
+}
+
+/**
+ * Parses a comma-separated ALLOWED_ORIGINS env var into normalized origin strings
+ * (e.g. "https://mon-app.vercel.app").
+ */
+export function parseAllowedOrigins(raw?: string): Set<string> {
+  const origins = new Set<string>();
+  if (!raw) return origins;
+  for (const part of raw.split(',')) {
+    const trimmed = part.trim();
+    if (!trimmed) continue;
+    try {
+      const parsed = new URL(trimmed);
+      if (parsed.protocol === 'http:' || parsed.protocol === 'https:') {
+        origins.add(parsed.origin.toLowerCase());
+      }
+    } catch {
+      // Ignore malformed origin entries
+    }
+  }
+  return origins;
+}
+
+
 

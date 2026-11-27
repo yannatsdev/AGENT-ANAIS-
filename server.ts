@@ -28,6 +28,7 @@ import type {
 import {
   detectAudioContentType,
   isValidInterviewId,
+  parseAllowedOrigins,
   parseHttpByteRange,
   sanitizeDurationSeconds,
   sanitizePromptField,
@@ -39,11 +40,24 @@ const isProduction = process.env.NODE_ENV === 'production';
 async function startServer() {
   purgeLegacySeedFiles();
 
+  const allowedOrigins = parseAllowedOrigins(process.env.ALLOWED_ORIGINS);
+
   const app = express();
   app.disable('x-powered-by');
-  app.use((_req, res, next) => {
+  app.use((req, res, next) => {
     res.setHeader('X-Content-Type-Options', 'nosniff');
     res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
+    const origin = req.headers.origin;
+    if (origin && allowedOrigins.has(origin.toLowerCase())) {
+      res.setHeader('Access-Control-Allow-Origin', origin);
+      res.setHeader('Vary', 'Origin');
+      res.setHeader('Access-Control-Allow-Methods', 'GET,POST,DELETE,OPTIONS');
+      res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+      if (req.method === 'OPTIONS') {
+        res.status(204).end();
+        return;
+      }
+    }
     next();
   });
   app.use(express.json({ limit: '30mb' }));
@@ -344,14 +358,19 @@ async function startServer() {
       if (reqUrl.pathname === '/ws/live') {
         const originHeader = request.headers.origin;
         if (originHeader) {
-          const originHost = new URL(originHeader).host.toLowerCase();
+          const parsedOrigin = new URL(originHeader);
+          const originHost = parsedOrigin.host.toLowerCase();
+          const originNormalized = parsedOrigin.origin.toLowerCase();
           const allowedHosts = new Set(
             [request.headers.host, request.headers['x-forwarded-host']]
               .flatMap((v) => (typeof v === 'string' ? v.split(',') : []))
               .map((h) => h.trim().toLowerCase())
               .filter(Boolean)
           );
-          if (allowedHosts.size > 0 && !allowedHosts.has(originHost)) {
+          const isAllowedOrigin =
+            (allowedHosts.size > 0 && allowedHosts.has(originHost)) ||
+            allowedOrigins.has(originNormalized);
+          if (!isAllowedOrigin) {
             socket.write('HTTP/1.1 403 Forbidden\r\n\r\n');
             socket.destroy();
             return;
