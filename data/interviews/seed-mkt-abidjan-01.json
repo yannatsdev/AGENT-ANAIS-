@@ -1,0 +1,202 @@
+{
+  "id": "seed-mkt-abidjan-01",
+  "profile": "marketing",
+  "voiceEngine": "gemini-3.8-live",
+  "participantName": "Awa Koné",
+  "companyName": "Savana Distribution CI",
+  "contactInfo": "awa.kone@savana-ci.example · +225 07 08 42 19 00",
+  "createdAt": "2026-11-22T10:15:00.000Z",
+  "durationSeconds": 642,
+  "hasAudioRecording": false,
+  "syncStatus": "synced",
+  "capturedNotes": [
+    {
+      "questionId": "Q1-Q3",
+      "section": "A",
+      "topic": "Contexte",
+      "answer": "Grande consommation / distribution, 50 à 249 personnes. Équipe interne de 2 personnes + 1 agence créa.",
+      "painLevel": "low",
+      "capturedAt": "2026-11-22T10:16:30.000Z"
+    },
+    {
+      "questionId": "Q5-Q6",
+      "section": "B",
+      "topic": "Tâches chronophages",
+      "answer": "Plus de 10h/semaine perdues sur les relances de validation direction, les messages WhatsApp/Facebook et la compilation manuelle des chiffres ventes + réseaux.",
+      "painLevel": "high",
+      "capturedAt": "2026-11-22T10:19:10.000Z"
+    },
+    {
+      "questionId": "Q9",
+      "section": "B",
+      "topic": "Procédures écrites",
+      "answer": "Rien d'écrit pour le circuit de validation, les règles de réponse WhatsApp et le suivi prospects jusqu'à la vente.",
+      "painLevel": "high",
+      "capturedAt": "2026-11-22T10:21:00.000Z"
+    },
+    {
+      "questionId": "Q15-Q18",
+      "section": "D",
+      "topic": "Priorité & Budget",
+      "answer": "Priorité n°1 : assistant réponses clients 24h/24 sur WhatsApp/Facebook + tableau de bord lundi matin. Budget abo 150k-300k FCFA/mois, projet ponctuel 1,5M-3M FCFA. FDFP mobilisable.",
+      "painLevel": "medium",
+      "capturedAt": "2026-11-22T10:24:40.000Z"
+    }
+  ],
+  "transcript": [
+    {
+      "id": "t1",
+      "speaker": "anais",
+      "text": "Bonjour Awa, je suis Anaïs de L'Agence X. Merci de prendre ces quelques minutes pour parler de votre quotidien marketing. Dans quel secteur évolue Savana Distribution et comment le marketing est-il organisé ?",
+      "timestamp": "00:04",
+      "themeCode": "A"
+    },
+    {
+      "id": "t2",
+      "speaker": "participant",
+      "text": "Bonjour Anaïs. Nous sommes dans la grande consommation à Abidjan, environ 120 collaborateurs. On est deux au marketing en interne et on travaille avec une agence pour les gros visuels.",
+      "timestamp": "00:22",
+      "themeCode": "A"
+    },
+    {
+      "id": "t3",
+      "speaker": "anais",
+      "text": "Une équipe de deux pour 120 personnes, ça doit être intense ! Quelles sont les étapes ou les tâches qui vous prennent le plus d'énergie chaque semaine ?",
+      "timestamp": "00:41",
+      "themeCode": "B"
+    },
+    {
+      "id": "t4",
+      "speaker": "participant",
+      "text": "Franchement, trois choses : courir après les validations sur WhatsApp, répondre aux dizaines de messages clients sur Facebook et WhatsApp Business, et assembler les chiffres de ventes et des campagnes dans Excel tous les vendredis. Rien que ça, c'est plus de dix heures par semaine.",
+      "timestamp": "01:08",
+      "themeCode": "B"
+    },
+    {
+      "id": "t5",
+      "speaker": "anais",
+      "text": "Plus de dix heures par semaine, c'est presque un tiers de votre temps. Et est-ce que vous avez aujourd'hui un circuit de validation ou des règles de réponse client formalisés par écrit ?",
+      "timestamp": "01:28",
+      "themeCode": "B"
+    },
+    {
+      "id": "t6",
+      "speaker": "participant",
+      "text": "On a une charte graphique, mais pour les validations, les briefs agence et le suivi des prospects jusqu'à la vente, il n'y a rien d'écrit. La semaine dernière une promo Tabaski est sortie avec quatre jours de retard parce qu'un devis est resté bloqué dans une conversation WhatsApp.",
+      "timestamp": "01:58",
+      "themeCode": "B"
+    },
+    {
+      "id": "t7",
+      "speaker": "anais",
+      "text": "Je comprends parfaitement la frustration. Si on pouvait vous soulager dès demain sur une seule tâche, ce serait l'assistant WhatsApp/Facebook 24h/24 ou le tableau de bord automatique ?",
+      "timestamp": "02:20",
+      "themeCode": "C"
+    },
+    {
+      "id": "t8",
+      "speaker": "participant",
+      "text": "L'assistant WhatsApp et Facebook en priorité absolue pour ne plus perdre de prospects le soir et le week-end, et un diagnostic de nos procédures. Pour convaincre notre DG, il faudrait un projet pilote chiffré et idéalement une formation finançable FDFP.",
+      "timestamp": "02:49",
+      "themeCode": "D"
+    }
+  ],
+  "summary": {
+    "headline": "Saturation opérationnelle sur WhatsApp et absence de circuit de validation écrit",
+    "executiveSummary": "Awa Koné pilote le marketing de Savana Distribution CI (120 salariés) avec une équipe réduite de 2 personnes. Plus de 10 heures hebdomadaires sont absorbées par les relances informelles sur WhatsApp, le traitement manuel des messages entrants et la consolidation Excel des résultats. L'absence de circuit écrit a récemment retardé une campagne clé de 4 jours.",
+    "timeLostEstimate": "Plus de 10 heures / semaine",
+    "maturityLevel": "Intermédiaire · Outils cloisonnés",
+    "keyPainPoints": [
+      {
+        "title": "Circuit de validation informel sur WhatsApp",
+        "category": "Procédures & Pilotage",
+        "severity": "Critique",
+        "impact": "Retard de 4 jours sur le lancement campagne promo et relances quotidiennes.",
+        "quote": "Un devis est resté bloqué dans une conversation WhatsApp.",
+        "recommendedAction": "Formaliser un circuit de validation en 3 étapes avec relances automatiques."
+      },
+      {
+        "title": "Flux entrant WhatsApp Business & Facebook non qualifié",
+        "category": "Expérience Client",
+        "severity": "Critique",
+        "impact": "Perte de prospects hors horaires ouvrés et surcharge de l’équipe interne.",
+        "recommendedAction": "Déployer un assistant conversationnel 24h/24 relié à WhatsApp Business et au suivi commercial."
+      },
+      {
+        "title": "Reporting ventes & campagnes assemblé à la main",
+        "category": "Mesure & ROI",
+        "severity": "Élevé",
+        "impact": "Mesure ROI approximative et mobilisation chaque vendredi.",
+        "recommendedAction": "Connecter Meta Business Suite et les données de ventes dans un tableau de bord automatique du lundi matin."
+      }
+    ],
+    "recommendedOffers": [
+      {
+        "offer": "Agents & Automatisations",
+        "relevance": "Prioritaire",
+        "rationale": "Assistant WhatsApp/Facebook 24h/24 + synchronisation automatique vers le fichier prospects (priorité Q15)."
+      },
+      {
+        "offer": "Audit & Procédures",
+        "relevance": "Prioritaire",
+        "rationale": "3 domaines critiques sans aucune procédure écrite (Q9) : validations, briefs agence et suivi prospects."
+      },
+      {
+        "offer": "Formation & FDFP",
+        "relevance": "Complémentaire",
+        "rationale": "Montée en compétence IA de l'équipe de 2 personnes finançable via le FDFP pour rassurer le DG."
+      }
+    ],
+    "structuredAnswers": [
+      {
+        "questionId": "Q1-Q2",
+        "section": "A",
+        "label": "Secteur & Effectif",
+        "value": "Grande consommation / distribution · 50 à 249 salariés"
+      },
+      {
+        "questionId": "Q3",
+        "section": "A",
+        "label": "Organisation",
+        "value": "Équipe interne (2 pers.) + agence externe"
+      },
+      {
+        "questionId": "Q6",
+        "section": "B",
+        "label": "Temps perdu / semaine",
+        "value": "Plus de 10 heures"
+      },
+      {
+        "questionId": "Q8",
+        "section": "B",
+        "label": "Mesure du ROI",
+        "value": "Seulement de façon approximative"
+      },
+      {
+        "questionId": "Q15",
+        "section": "C",
+        "label": "Priorité dès demain",
+        "value": "b. Répondre 24h/24 sur WhatsApp/Facebook & transmettre les demandes chaudes"
+      },
+      {
+        "questionId": "Q17-Q18",
+        "section": "D",
+        "label": "Budgets évoqués",
+        "value": "150 000 – 300 000 FCFA/mois · 1,5M – 3M FCFA (projet ponctuel)"
+      },
+      {
+        "questionId": "Q20",
+        "section": "D",
+        "label": "Leviers accord DG",
+        "value": "Projet pilote chiffré + formation finançable FDFP"
+      }
+    ],
+    "decisionFactors": [
+      "Décision finale portée par le Directeur Général",
+      "Projet pilote sur périmètre réduit avec chiffrage du temps gagné",
+      "Éligibilité FDFP pour la composante formation"
+    ],
+    "nextSteps": "Proposer un échange de 20 minutes avec Awa Koné et son DG autour d'un pilote WhatsApp Business + audit express du circuit de validation.",
+    "generatedBy": "gemini-4-hydrogen"
+  }
+}

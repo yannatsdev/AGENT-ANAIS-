@@ -1,0 +1,6 @@
+{
+  "name": "Anaïs · L'Agence X",
+  "description": "Entretiens vocaux IA en temps réel avec Anaïs de L'Agence X pour identifier les points bloquants des Directeurs Marketing et Directeurs Généraux de PME ivoiriennes, avec synthèse automatique, enregistrement audio, mode hors ligne et export PDF.",
+  "requestFramePermissions": ["microphone"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

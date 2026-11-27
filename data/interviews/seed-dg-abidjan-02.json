@@ -1,0 +1,174 @@
+{
+  "id": "seed-dg-abidjan-02",
+  "profile": "dg",
+  "voiceEngine": "gemini-3.8-live",
+  "participantName": "Jean-Marc Kouassi",
+  "companyName": "Lagune Logistique & Transit",
+  "contactInfo": "jmkouassi@lagunelogistique.example",
+  "createdAt": "2026-11-23T15:40:00.000Z",
+  "durationSeconds": 715,
+  "hasAudioRecording": false,
+  "syncStatus": "synced",
+  "capturedNotes": [
+    {
+      "questionId": "Q1-Q2",
+      "section": "A",
+      "topic": "Entreprise",
+      "answer": "Transport / logistique, 65 collaborateurs basés à Zone 4, Abidjan.",
+      "painLevel": "low",
+      "capturedAt": "2026-11-23T15:41:20.000Z"
+    },
+    {
+      "questionId": "Q4-Q6",
+      "section": "B",
+      "topic": "Pilotage & charge DG",
+      "answer": "Plusieurs jours pour avoir les factures impayées et l’avancement des dossiers transit. Le DG passe 50 à 75 % de sa semaine sur l’opérationnel et les validations papier/WhatsApp.",
+      "painLevel": "high",
+      "capturedAt": "2026-11-23T15:45:05.000Z"
+    },
+    {
+      "questionId": "Q12-Q14",
+      "section": "D",
+      "topic": "Gouvernance & Sécurité",
+      "answer": "Un prestataire externe détient les codes admin. Un commercial parti l'an dernier avait encore accès aux fichiers clients. Usage IA libre sans règles.",
+      "painLevel": "high",
+      "capturedAt": "2026-11-23T15:49:12.000Z"
+    }
+  ],
+  "transcript": [
+    {
+      "id": "d1",
+      "speaker": "anais",
+      "text": "Bonjour Jean-Marc, je suis Anaïs de L'Agence X. Merci de prendre ce temps. Pour commencer, dans quel secteur opère Lagune Logistique et combien de collaborateurs comptez-vous ?",
+      "timestamp": "00:05",
+      "themeCode": "A"
+    },
+    {
+      "id": "d2",
+      "speaker": "participant",
+      "text": "Bonjour Anaïs. Nous faisons du transit et de la logistique portuaire à Abidjan, nous sommes 65 personnes.",
+      "timestamp": "00:21",
+      "themeCode": "A"
+    },
+    {
+      "id": "d3",
+      "speaker": "anais",
+      "text": "Aujourd'hui, si vous voulez connaître vos factures impayées exactes ou l'avancement des dossiers clients en cours, en combien de temps obtenez-vous une information fiable ?",
+      "timestamp": "00:38",
+      "themeCode": "B"
+    },
+    {
+      "id": "d4",
+      "speaker": "participant",
+      "text": "La trésorerie bancaire je l'ai dans la journée, mais les factures impayées avec leurs retards et l'état des dossiers clients, il faut souvent deux ou trois jours de pointage dans Excel. En plus je passe facilement 60 à 70 % de ma semaine à valider des dépenses par WhatsApp ou signature papier.",
+      "timestamp": "01:12",
+      "themeCode": "B"
+    },
+    {
+      "id": "d5",
+      "speaker": "anais",
+      "text": "Passer plus de la moitié de votre semaine sur l'opérationnel, c'est énorme pour un dirigeant. Et côté informatique et accès, savez-vous exactement qui a accès à quoi et si les accès sont coupés dès qu'un collaborateur part ?",
+      "timestamp": "01:39",
+      "themeCode": "D"
+    },
+    {
+      "id": "d6",
+      "speaker": "participant",
+      "text": "Honnêtement non. C'est un prestataire externe qui gère les comptes et on a eu un souci l'année dernière avec un commercial parti avec des fichiers clients. Mes équipes utilisent ChatGPT mais sans cadre précis. Je veux un tableau de bord sur téléphone, des validations tracées et reprendre la main sur nos données.",
+      "timestamp": "02:18",
+      "themeCode": "D"
+    }
+  ],
+  "summary": {
+    "headline": "Goulot d’étranglement sur le DG (60-70% opérationnel) et risques de gouvernance IT",
+    "executiveSummary": "Jean-Marc Kouassi consacre 50 à 75 % de sa semaine aux validations quotidiennes et aux urgences opérationnelles. L'obtention d'une vue fiable sur les impayés et dossiers clients prend plusieurs jours. Par ailleurs, la gouvernance IT présente une vulnérabilité critique : codes administrateur détenus par un prestataire externe et départ récent d'un commercial avec des fichiers clients.",
+    "timeLostEstimate": "50 à 75 % de la semaine du DG en opérationnel",
+    "maturityLevel": "Exposé · Gouvernance à sécuriser",
+    "keyPainPoints": [
+      {
+        "title": "DG goulot d’étranglement sur les validations",
+        "category": "Pilotage & Délégation",
+        "severity": "Critique",
+        "impact": "60 à 70 % du temps dirigeant absorbé par les signatures papier et WhatsApp.",
+        "quote": "Je passe facilement 60 à 70 % de ma semaine à valider des dépenses par WhatsApp ou signature papier.",
+        "recommendedAction": "Mettre en place un circuit de validation mobile tracé avec seuils de délégation."
+      },
+      {
+        "title": "Délai de plusieurs jours sur les impayés et dossiers clients",
+        "category": "Visibilité Financière",
+        "severity": "Critique",
+        "impact": "Risque de tension de trésorerie et absence d’alerte précoce sur les retards.",
+        "recommendedAction": "Connecter Sage/Excel à un espace de pilotage temps réel avec alertes impayés sur téléphone."
+      },
+      {
+        "title": "Perte de souveraineté sur les accès & données clients",
+        "category": "Gouvernance & Sécurité",
+        "severity": "Critique",
+        "impact": "Incident avéré de départ collaborateur avec fichiers clients et usage IA non encadré.",
+        "recommendedAction": "Audit d'accès, récupération des codes administrateur entreprise et charte IA encadrée."
+      }
+    ],
+    "recommendedOffers": [
+      {
+        "offer": "Audit & Procédures",
+        "relevance": "Prioritaire",
+        "rationale": "Sécurisation immédiate des accès IT, procédures achats/validations et politique de départ collaborateur."
+      },
+      {
+        "offer": "Outil Clé en Main",
+        "relevance": "Prioritaire",
+        "rationale": "Espace dirigeant mobile unifié : trésorerie, impayés, validations tracées et alertes automatiques."
+      },
+      {
+        "offer": "Formation & FDFP",
+        "relevance": "Complémentaire",
+        "rationale": "Encadrer l'usage déjà actif de l'IA par les équipes avec des règles de confidentialité (financement FDFP)."
+      }
+    ],
+    "structuredAnswers": [
+      {
+        "questionId": "Q1-Q2",
+        "section": "A",
+        "label": "Secteur & Effectif",
+        "value": "Transport / logistique · 65 collaborateurs"
+      },
+      {
+        "questionId": "Q4",
+        "section": "B",
+        "label": "Délai info fiable",
+        "value": "Plusieurs jours (impayés & dossiers clients)"
+      },
+      {
+        "questionId": "Q6",
+        "section": "B",
+        "label": "Charge opérationnelle DG",
+        "value": "50 à 75 % de la semaine"
+      },
+      {
+        "questionId": "Q8",
+        "section": "C",
+        "label": "Validations actuelles",
+        "value": "WhatsApp et signature papier"
+      },
+      {
+        "questionId": "Q12-Q15",
+        "section": "D",
+        "label": "Gouvernance & Incidents",
+        "value": "Codes admin chez prestataire · Départ avec fichiers clients vécu"
+      },
+      {
+        "questionId": "Q16",
+        "section": "E",
+        "label": "Priorités d’amélioration",
+        "value": "Pilotage mobile trésorerie/impayés · Validations tracées · Protection des données"
+      }
+    ],
+    "decisionFactors": [
+      "ROI attendu en 3 à 6 mois sur le recouvrement et le temps dirigeant libéré",
+      "Garanties fortes sur la propriété des codes administrateur et la confidentialité",
+      "Adoption simple sur mobile par les équipes"
+    ],
+    "nextSteps": "Planifier un rendez-vous de 20 minutes avec Jean-Marc Kouassi pour présenter l'audit gouvernance express et la maquette de pilotage mobile.",
+    "generatedBy": "gemini-4-hydrogen"
+  }
+}
